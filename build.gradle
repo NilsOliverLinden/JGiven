@@ -13,8 +13,8 @@ description = 'JGiven - BDD in plain Java'
 def jacocoEnabled = !JavaVersion.current().isJava11Compatible();
 
 wrapper {
-    gradleVersion = '6.0.1'
-    distributionType = Wrapper.DistributionType.ALL
+    gradleVersion = '6.5.1'
+    distributionType = Wrapper.DistributionType.BIN
 }
 
 allprojects {
@@ -77,9 +77,9 @@ subprojects {
 configure(subprojects.findAll { !it.name.contains("android") }) {
     apply plugin: 'java'
     apply plugin: 'org.asciidoctor.jvm.convert'
-    apply plugin: 'maven'
-    apply plugin: 'signing'
-    apply plugin: 'maven-publish'
+//    apply plugin: 'maven'
+//    apply plugin: 'signing'
+//    apply plugin: 'maven-publish'
 
     sourceCompatibility = targetCompatibility = 1.8
 
@@ -220,6 +220,7 @@ configure(subprojects) {
     apply plugin: 'signing'
     apply plugin: 'maven-publish'
 
+    println "configuring subprojects: Module ${project.name}"
     description "${rootProject.description} - Module ${project.name}"
 
     if (JavaVersion.current().isJava8Compatible()) {
