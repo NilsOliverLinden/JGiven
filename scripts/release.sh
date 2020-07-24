@@ -66,13 +66,13 @@ fi
 releaseRepositoryAndPushVersion()
 {
   echo Releasing the repository...
-  ./gradlew releaseRepository
+#  ./gradlew releaseRepository
 
   echo Publishing Gradle Plugin to Gradle Plugin Repository...
-  ./gradlew -b jgiven-gradle-plugin/build.gradle publishPlugins -Dgradle.publish.key=$GRADLE_PLUGIN_RELEASE_KEY -Dgradle.publish.secret=$GRADLE_PLUGIN_RELEASE_SECRET
+#  ./gradlew -b jgiven-gradle-plugin/build.gradle publishPlugins -Dgradle.publish.key=$GRADLE_PLUGIN_RELEASE_KEY -Dgradle.publish.secret=$GRADLE_PLUGIN_RELEASE_SECRET
 
   echo Testing Gradle Plugin from Gradle Plugin Repository
-  ./gradlew -b example-projects/java9/build.gradle clean test -Pversion=$VERSION
+#  ./gradlew -b example-projects/java9/build.gradle clean test -Pversion=$VERSION
 
   git push
 }
