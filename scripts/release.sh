@@ -82,4 +82,3 @@ releaseRepositoryAndPushVersion()
   git push
   git push $REMOTE_REPO_URL $VERSION
 }
-:
