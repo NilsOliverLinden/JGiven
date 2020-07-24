@@ -51,18 +51,6 @@ git tag -a -m $VERSION_PREFIXED $VERSION_PREFIXED
 
 echo STAGING SUCCESSFUL!
 
-echo $CI
-if [[ $CI == "true" ]]
-then
-  releaseRepositoryAndPushVersion
-else
-  read -p "Do you want to release and push now? [y/N]" -n 1 -r
-  if [[ $REPLY =~ ^[Yy]$ ]]
-  then
-    releaseRepositoryAndPushVersion
-fi
-fi
-
 releaseRepositoryAndPushVersion()
 {
   echo Releasing the repository...
@@ -82,3 +70,15 @@ releaseRepositoryAndPushVersion()
   git push
   git push $REMOTE_REPO_URL $VERSION
 }
+
+echo $CI
+if [[ $CI == "true" ]]
+then
+  releaseRepositoryAndPushVersion
+else
+  read -p "Do you want to release and push now? [y/N]" -n 1 -r
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    releaseRepositoryAndPushVersion
+fi
+fi
