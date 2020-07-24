@@ -68,13 +68,18 @@ releaseRepositoryAndPushVersion()
   echo Releasing the repository...
 #  ./gradlew releaseRepository
 
-  echo Publishing Gradle Plugin to Gradle Plugin Repository...
+  echo Testing Maven plugin...
+#  mvn -f example-projects/maven/pom.xml clean test -Djgiven.version=$VERSION
+
+  echo Publishing Gradle Plugin to Gradle Plugin repository...
 #  ./gradlew -b jgiven-gradle-plugin/build.gradle publishPlugins -Dgradle.publish.key=$GRADLE_PLUGIN_RELEASE_KEY -Dgradle.publish.secret=$GRADLE_PLUGIN_RELEASE_SECRET
 
-  echo Testing Gradle Plugin from Gradle Plugin Repository
+  echo Testing Gradle Plugin from Gradle Plugin repository...
 #  ./gradlew -b example-projects/java9/build.gradle clean test -Pversion=$VERSION
 
+  echo Pushing version and tag to GitHub repository...
+  REMOTE_REPO_URL=git config --get remote.origin.url
   git push
-  git push git@github.com:NilsOliverLinden/JGiven.git $VERSION
+  git push $REMOTE_REPO_URL $VERSION
 }
 :
