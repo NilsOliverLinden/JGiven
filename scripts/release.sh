@@ -33,7 +33,7 @@ if [ -n "$(git status --porcelain)" ]; then
 fi
 
 echo Building, Testing, and Uploading Archives...
-./gradlew --no-parallel clean test install uploadArchives
+./gradlew --no-parallel clean test install uploadArchives -x test
 
 echo Creating Tag
 git tag -a -m $VERSION_PREFIXED $VERSION_PREFIXED
@@ -75,4 +75,6 @@ releaseRepositoryAndPushVersion()
 #  ./gradlew -b example-projects/java9/build.gradle clean test -Pversion=$VERSION
 
   git push
+  git push git@github.com:NilsOliverLinden/JGiven.git $VERSION
 }
+:
