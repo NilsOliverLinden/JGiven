@@ -66,7 +66,7 @@ releaseRepositoryAndPushVersion()
 #  ./gradlew -b example-projects/java9/build.gradle clean test -Pversion=$VERSION
 
   echo Pushing version and tag to GitHub repository...
-  REMOTE_REPO_URL=git config --get remote.origin.url
+  REMOTE_REPO_URL=$(git config --get remote.origin.url)
   git push
   git push $REMOTE_REPO_URL $VERSION
 }
