@@ -32,22 +32,22 @@ if [ -n "$(git status --porcelain)" ]; then
     git commit -m "Update version to $VERSION"
 fi
 
-echo Building, Testing, and Uploading Archives...
-./gradlew --no-parallel clean test install uploadArchives -x test
+#echo Building, Testing, and Uploading Archives...
+#./gradlew --no-parallel clean test install uploadArchives -x test
 
 echo Creating Tag
 git tag -a -m $VERSION_PREFIXED $VERSION_PREFIXED
 
-echo Closing the repository...
-./gradlew closeRepository
-
-echo Testing staging version...
-
-echo Testing Maven plugin...
-mvn -f example-projects/maven/pom.xml clean test -Pstaging -Djgiven.version=$VERSION
-
-echo Testing Gradle plugin...
-./gradlew -b example-projects/junit5/build.gradle clean test -Pstaging -Pversion=$VERSION
+#echo Closing the repository...
+#./gradlew closeRepository
+#
+#echo Testing staging version...
+#
+#echo Testing Maven plugin...
+#mvn -f example-projects/maven/pom.xml clean test -Pstaging -Djgiven.version=$VERSION
+#
+#echo Testing Gradle plugin...
+#./gradlew -b example-projects/junit5/build.gradle clean test -Pstaging -Pversion=$VERSION
 
 echo STAGING SUCCESSFUL!
 
