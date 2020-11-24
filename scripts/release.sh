@@ -34,8 +34,6 @@ if [ -z "${ANDROID_SDK_ROOT}" ]; then
     exit 1
 fi
 
-
-
 VERSION="$1"
 VERSION_PREFIXED="v$1"
 declare -a GRADLE_PROPERTIES
@@ -55,31 +53,9 @@ fi
 echo Building, Testing, and Uploading Archives...
 ./gradlew --no-parallel clean test  publishMavenPublicationToMavenLocal publishMavenPublicationToMavenRepository "${GRADLE_PROPERTIES[@]}"
 
-echo Creating Tag
-git tag -a -m "${VERSION_PREFIXED}" "${VERSION_PREFIXED}"
 
 echo Closing the repository...
 ./gradlew closeRepository "${GRADLE_PROPERTIES[@]}"
 
-echo Testing staging version...
-
-echo Testing Maven plugin from staging repository...
-mvn -f example-projects/maven/pom.xml clean test -Djgiven.version="${VERSION}"
-
-echo Testing Gradle plugin from staging repository...
-./gradlew -b example-projects/junit5/build.gradle clean test -Pstaging -Pversion="${VERSION}" "${GRADLE_PROPERTIES[@]}"
-
 echo STAGING SUCCESSFUL!
-
-echo "${CI}"
-if [[ "${CI}" == "true" ]]
-then
-  releaseRepositoryAndPushVersion || exit $?
-else
-  read -p "Do you want to release and push now? [y/N]" -n 1 -r
-  if [[ "${REPLY}" =~ ^[Yy]$ ]]
-  then
-    releaseRepositoryAndPushVersion || exit $?
-  fi
-fi
 
