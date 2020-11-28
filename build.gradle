@@ -45,20 +45,7 @@ asciidoctor {
 nexusStaging {
     stagingProfileId = stagingProfileId // stagingProfileId must be defined externally
     packageGroup = 'com.tngtech'
-    username = sonatypeUsername
-    password = sonatypePassword
     numberOfRetries = 120
-}
-
-nexusPublishing {
-    repositories {
-        maven {
-            nexusUrl = uri('https://oss.sonatype.org/service/local/staging/deploy/maven2/')
-            snapshotRepositoryUrl = uri('https://oss.sonatype.org/content/repositories/snapshots/')
-            username = sonatypeUsername
-            password = sonatypePassword
-        }
-    }
 }
 
 subprojects {
@@ -86,6 +73,7 @@ subprojects {
         androidGradleVersion = '3.1.0'
         androidCompileSdkVersion = 27
         androidBuildToolsVersion = '27.0.2'
+        nexusUrl = uri('https://oss.sonatype.org/service/local/staging/deploy/maven2/')
 
         publishVariant = { String variant ->
             publishing {
@@ -136,17 +124,6 @@ subprojects {
                                 }
                             }
 
-                        }
-                    }
-                }
-                repositories {
-                    maven {
-                        String releaseUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-                        String snapshotUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
-                        url = System.env.RELEASE == "true" ? releaseUrl : snapshotUrl
-                        credentials {
-                            username = sonatypeUsername
-                            password = sonatypePassword
                         }
                     }
                 }
@@ -281,6 +258,18 @@ configure(subprojects) {
     apply plugin: 'idea'
     apply plugin: 'signing'
     apply plugin: 'maven-publish'
+    apply plugin: 'de.marcphilipp.nexus-publish'
+
+    nexusPublishing {
+        repositories {
+            maven {
+                nexusUrl = uri('https://oss.sonatype.org/service/local/staging/deploy/maven2/')
+                snapshotRepositoryUrl = uri('https://oss.sonatype.org/content/repositories/snapshots/')
+                username = sonatypeUsername
+                password = sonatypePassword
+            }
+        }
+    }
 
     description "${rootProject.description} - Module ${project.name}"
 

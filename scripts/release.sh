@@ -51,7 +51,7 @@ if [ -n "$(git status --porcelain)" ]; then
 fi
 
 echo Building, Testing, and Uploading Archives...
-./gradlew --no-parallel -x test clean publishMavenPublicationToMavenLocal publishMavenPublicationToMavenRepository "${GRADLE_PROPERTIES[@]}" -i
+./gradlew --no-parallel -x test clean publishMavenPublicationToMavenLocal publishToMaven "${GRADLE_PROPERTIES[@]}" -i
 
 
 echo Closing the repository...
