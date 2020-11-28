@@ -43,8 +43,11 @@ asciidoctor {
 }
 
 nexusStaging {
+    stagingProfileId = stagingProfileId // stagingProfileId must be defined externally
     packageGroup = 'com.tngtech'
     numberOfRetries = 120
+    username = sonatypeUsername
+    password = sonatypePassword
 }
 
 subprojects {
@@ -264,8 +267,6 @@ configure(subprojects) {
             maven {
                 nexusUrl = uri('https://oss.sonatype.org/service/local/staging/deploy/maven2/')
                 snapshotRepositoryUrl = uri('https://oss.sonatype.org/content/repositories/snapshots/')
-                username = sonatypeUsername
-                password = sonatypePassword
             }
         }
     }
