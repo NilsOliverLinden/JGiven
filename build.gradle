@@ -43,6 +43,7 @@ asciidoctor {
 }
 
 nexusStaging {
+    stagingProfileId = '2152ce084edf93'
     packageGroup = 'com.tngtech'
     numberOfRetries = 120
     username = sonatypeUsername
